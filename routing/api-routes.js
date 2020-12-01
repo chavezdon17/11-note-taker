@@ -1,7 +1,6 @@
 //using node callbacks
 const { response } = require("express");
 const fs = require("fs");
-const util = require("util");
 
 const notes = JSON.parse(response);
 const noteReq = req.body;
@@ -41,7 +40,7 @@ module.exports = function (app) {
       }
     );
 
-    app.delete("/api/notes/id", function (req, res) {
+    app.delete("/api/notes/:id", function (req, res) {
       fs.readFile("db.json", "utf8", function (error, res) {
         if (error) {
           console.log("Deleted note with id " + req.params.id);
@@ -49,6 +48,9 @@ module.exports = function (app) {
         let notes = JSON.parse(response);
         {
           res.json(notes.splice(deleteNote - 1));
+          for (let i = 0; i < notes.length; i++) {
+            notes[i].id = i + 1;
+          }
         }
       });
     });
