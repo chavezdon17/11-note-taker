@@ -1,8 +1,8 @@
 //using node callbacks
-const { response } = require("express");
+const response = require("express");
 const fs = require("fs");
+const notes = require("../db.json");
 
-const notes = JSON.parse(response);
 const noteReq = req.body;
 const newNote = notes.length + 1;
 const addedNote = {
